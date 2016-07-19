@@ -73,7 +73,12 @@ import { Hero } from './hero';
             </li>
         </ul>
 
-        <my-hero-detail [hero]="selectedHero"></my-hero-detail>
+        <div *ngIf="selectedHero">
+        
+            <h2>{{ selectedHero.name | uppercase }}</h2>
+            
+            <button (click)="gotoDetail()">View Details</button>
+        </div>
     `
 })
 
@@ -89,6 +94,7 @@ export class HeroesComponent implements OnInit {
     onSelect( hero: Hero )
     {
         this.selectedHero = hero;
+        console.log ( hero.name, 'has been selected' );
     }
     getHeroes ()
     {
