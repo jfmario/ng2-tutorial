@@ -6,13 +6,16 @@ import { HeroDetailComponent } from './hero-detail.component';
 import { Hero } from './hero';
 
 @Component ({
+    directives: [HeroDetailComponent],
     selector: 'my-heroes',
     styleUrls: ['app/css/heroes.component.css'],
     templateUrl: 'app/html/heroes.component.html'
 })
 
 export class HeroesComponent implements OnInit {
-
+    
+    addingHero = false;
+    error: any;
     heroes: Hero[];
     selectedHero: Hero;
 
@@ -23,6 +26,26 @@ export class HeroesComponent implements OnInit {
         private router: Router
     ) {}
 
+    addHero () {
+        this.addingHero = true;
+        this.selectedHero = null;
+    }
+    close ( savedHero: Hero ) {
+        this.addingHero = false;
+        if ( savedHero ) this.getHeroes ();
+    }
+    deleteHero ( hero: Hero, event: any ) {
+        
+        event.stopPropagation ();
+        
+        this.heroService.delete ( hero )
+            .then ( res => {
+                this.heroes = this.heroes.filter ( h => h !== hero );
+                if ( this.selectedHero == hero )
+                    this.selectedHero = null;
+            })
+            .catch ( error => this.error = error );
+    }
     onSelect( hero: Hero )
     {
         this.selectedHero = hero;
