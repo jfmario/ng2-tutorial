@@ -1,85 +1,14 @@
 
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HeroService } from './hero.service';
 import { HeroDetailComponent } from './hero-detail.component';
 import { Hero } from './hero';
 
 @Component ({
-    directives: [HeroDetailComponent],
     selector: 'my-heroes',
-    styles: [
-        `
-        .selected {
-            background-color: #cfd8dc !important;
-            color: white;
-        }
-        .heroes {
-            list-style-type: none;
-            margin: 0 0 2em 0;
-            padding: 0;
-            width: 15em;
-        }
-        .heroes li {
-            background-color: #eee;
-            border-radius: 4px;
-            cursor: pointer;
-            height: 1.6em;
-            left: 0;
-            margin: .5em;
-            padding: .3em 0;
-            position: relative;
-        }
-        .heroes li.selected:hover {
-            background-color: #bbd8dc !important;
-            color: white;
-        }
-        .heroes li:hover {
-            background-color: #ddd;
-            color: #607d8b;
-            left: .1em;
-        }
-        .heroes .text {
-            position: relative;
-            top: -3px;
-        }
-        .heroes .badge {
-            background-color: #607d8b;
-            border-radius: 4px 0 0 4px;
-            color: white;
-            display: inline-block;
-            font-size: small;
-            height: 1.8em;
-            line-height: 1em;
-            margin-right: 0.8em;
-            padding: 0.8em 0. em 0 0.7em;
-            position: relative;
-            left: -1px;
-            top: -4px;
-        }
-        `
-    ],
-    template: `
-        <h1>{{ title }}</h1>
-
-        <h2>HS Heroes</h2>
-
-        <ul class="heroes">
-            <li
-                *ngFor="let hero of heroes"
-                [class.selected]="hero === selectedHero"
-                (click)="onSelect(hero)"
-            >
-                <span class="badge">{{hero.id}}</span> {{hero.name}}
-            </li>
-        </ul>
-
-        <div *ngIf="selectedHero">
-        
-            <h2>{{ selectedHero.name | uppercase }}</h2>
-            
-            <button (click)="gotoDetail()">View Details</button>
-        </div>
-    `
+    styleUrls: ['app/css/heroes.component.css'],
+    templateUrl: 'app/html/heroes.component.html'
 })
 
 export class HeroesComponent implements OnInit {
@@ -89,7 +18,10 @@ export class HeroesComponent implements OnInit {
 
     title = "Tour of Heroes";
 
-    constructor( private heroService: HeroService ) {}
+    constructor (
+        private heroService: HeroService,
+        private router: Router
+    ) {}
 
     onSelect( hero: Hero )
     {
@@ -100,6 +32,9 @@ export class HeroesComponent implements OnInit {
     {
         console.log ( this );
         this.heroService.getHeroes ().then ( heroes => this.heroes = heroes );
+    }
+    gotoDetail () {
+        this.router.navigate ( [ '/detail', this.selectedHero.id ] );
     }
     ngOnInit ()
     {

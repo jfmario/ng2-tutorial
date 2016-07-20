@@ -8,6 +8,7 @@ import { HeroesComponent } from './heroes.component';
     directives: [ROUTER_DIRECTIVES],
     providers: [HeroService],
     selector: 'my-app',
+    styleUrls: ['app/css/app.component.css'],
     template: `
 
         <h1>{{ title }}</h1>
@@ -16,7 +17,7 @@ import { HeroesComponent } from './heroes.component';
             <a [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a>
             <a [routerLink]="['/heroes']" routerLinkActive="active">Heroes</a>
         </nav>
-        
+
         <router-outlet></router-outlet>
     `
 })

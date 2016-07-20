@@ -20,7 +20,8 @@ var AppComponent = (function () {
             directives: [router_1.ROUTER_DIRECTIVES],
             providers: [hero_service_1.HeroService],
             selector: 'my-app',
-            template: "\n\n        <h1>{{ title }}</h1>\n\n        <nav>\n            <a [routerLink]=\"['/dashboard']\" routerLinkActive=\"active\">Dashboard</a>\n            <a [routerLink]=\"['/heroes']\" routerLinkActive=\"active\">Heroes</a>\n        </nav>\n        \n        <router-outlet></router-outlet>\n    "
+            styleUrls: ['app/css/app.component.css'],
+            template: "\n\n        <h1>{{ title }}</h1>\n\n        <nav>\n            <a [routerLink]=\"['/dashboard']\" routerLinkActive=\"active\">Dashboard</a>\n            <a [routerLink]=\"['/heroes']\" routerLinkActive=\"active\">Heroes</a>\n        </nav>\n\n        <router-outlet></router-outlet>\n    "
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
